@@ -27,8 +27,8 @@ MuxMemo when given an uri returns you a `MuxDemux` instance and
     garantuees that you can have don't open up two sockjs
     streams to the same domain.
 
-```
-var MuxMemo = require("../..")
+```js
+var MuxMemo = require("mux-memo")
     , WriteStream = require("write-stream")
 
 var mdm1 = MuxMemo("//signalchannel.co/sock")
