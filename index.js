@@ -15,6 +15,10 @@ function MuxMemo(uri) {
 
         mdmPool[uri] = mdm
 
+        stream.on("connect", function () {
+            mdm.emit("connect")
+        })
+
         stream.pipe(mdm).pipe(stream)
     }
 
