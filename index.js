@@ -6,17 +6,21 @@ var sock = require("sockjs-stream")
 
 module.exports = MuxMemo
 
-function MuxMemo(uri) {
+function MuxMemo(uri, options) {
     var mdm = mdmPool[uri]
 
     if (!mdm) {
-        var stream = sock(uri)
+        var stream = sock(uri, options)
             , mdm = MuxDemux()
 
         mdmPool[uri] = mdm
 
         stream.on("connect", function () {
             mdm.emit("connect")
+        })
+
+        stream.on("close", function (ev) {
+            mdm.emit("closed", ev)
         })
 
         stream.pipe(mdm).pipe(stream)
